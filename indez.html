@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>سرور SAMP فارسی Marshal</title>
+<style>
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+body {
+font-family: Tahoma, sans-serif;
+color: white;
+min-height: 100vh;
+position: relative;
+display: flex;
+flex-direction: column;
+}
+.bg {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: url('https://i.imgur.com/FIC9OHD.jpeg') center center/cover no-repeat;
+filter: blur(6px);
+z-index: -2;
+}
+.bg-overlay {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0,0,0,0.5);
+z-index: -1;
+}
+header {
+background: rgba(0,0,0,0.6);
+padding: 20px;
+text-align: center;
+}
+header h1 {
+margin: 0;
+font-size: 2.5em;
+color: #FFD700;
+}
+nav {
+text-align: center;
+margin-top: 10px;
+}
+nav a {
+margin: 0 15px;
+color: white;
+text-decoration: none;
+font-weight: bold;
+}
+section {
+padding: 20px;
+max-width: 800px;
+margin: auto;
+}
+.info-box {
+background: rgba(0,0,0,0.6);
+padding: 15px;
+border-radius: 8px;
+text-align: center;
+font-size: 1.2em;
+margin-bottom: 20px;
+}
+.btn-copy {
+background: #FFD700;
+border: none;
+padding: 8px 15px;
+margin-top: 10px;
+cursor: pointer;
+font-weight: bold;
+}
+.gallery {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+gap: 15px;
+}
+.gallery img {
+width: 100%;
+border-radius: 8px;
+}
+footer {
+background: rgba(0,0,0,0.7);
+padding: 10px;
+text-align: center;
+font-size: 0.9em;
+margin-top: 20px;
+}
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+<div class="bg-overlay"></div>
+
+<header>
+<h1>سرور SAMP Marshal</h1>
+<p>به بهترین سرور فارسی SAMP خوش آمدید</p>
+<nav>
+<a href="#about">درباره ما</a>
+<a href="#rules">قوانین</a>
+<a href="#gallery">گالری</a>
+</nav>
+</header>
+
+<section id="about">
+<div class="info-box">
+آی‌پی سرور: <span id="server-ip">5.57.34.54:7777</span><br>
+بازیکنان آنلاین: <span id="players-count">در حال بارگذاری...</span><br>
+<button class="btn-copy" onclick="copyIP()">کپی آی‌پی</button>
+</div>
+<p>سرور Marshal یک سرور نقش‌آفرینی (RolePlay) با امکانات ویژه و مدیریت حرفه‌ای است. اینجا می‌توانید شخصیت خود را بسازید، شغل بگیرید، خانه بخرید و با دوستان خود ماجراجویی کنید.</p>
+</section>
+
+<section id="rules">
+<h2>قوانین سرور</h2>
+<ul>
+<li>رعایت احترام به همه بازیکنان الزامی است.</li>
+<li>استفاده از چیت یا باگ‌اکسپلویت ممنوع است.</li>
+<li>پیروی از قوانین IC/OOC الزامی می‌باشد.</li>
+<li>اسپم و تبلیغ سایر سرورها ممنوع است.</li>
+</ul>
+</section>
+
+<section id="gallery">
+<h2>گالری تصاویر</h2>
+<div class="gallery">
+<img src="https://i.imgur.com/Zr6krSV.jpeg" alt="تصویر سرور 1">
+<img src="https://i.imgur.com/8Z9bXnB.jpeg" alt="تصویر سرور 2">
+<img src="https://i.imgur.com/BOim6TX.jpeg" alt="تصویر سرور 3">
+</div>
+</section>
+
+<footer>
+© 2025 تمامی حقوق برای سرور Marshal محفوظ است.
+</footer>
+
+<script>
+function copyIP() {
+var ip = document.getElementById("server-ip").textContent;
+navigator.clipboard.writeText(ip);
+alert("آی‌پی کپی شد!");
+}
+
+// نمایش بازیکنان آنلاین از API
+fetch("https://api.open.mp/servers/5.57.34.54:7777")
+.then(res => res.json())
+.then(data => {
+if(data && data.hostname){
+document.getElementById("players-count").textContent = data.players + " / " + data.maxplayers;
+} else {
+document.getElementById("players-count").textContent = "اطلاعات در دسترس نیست";
+}
+})
+.catch(() => {
+document.getElementById("players-count").textContent = "خطا در دریافت اطلاعات";
+});
+</script>
+
+</body>
+</html>
